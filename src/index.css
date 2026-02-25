@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+/*
+ * Manual de Marca — Central Regatão (preservar em widgets e novas pastas):
+ * - Ouro Tapajós: #ebe22f (destaques, CTAs, ativo)
+ * - Cinza Chumbo: escala zinc (fundo #070707, #0a0a0a; texto zinc-100, zinc-500, etc.)
+ * - Acento danger: #db2669
+ */
+body {
+  margin: 0;
+  background-color: #070707;
+}
