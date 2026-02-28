@@ -1,12 +1,112 @@
 @import "tailwindcss";
 
 /*
- * Manual de Marca — Central Regatão (preservar em widgets e novas pastas):
- * - Ouro Tapajós: #ebe22f (destaques, CTAs, ativo)
- * - Cinza Chumbo: escala zinc (fundo #070707, #0a0a0a; texto zinc-100, zinc-500, etc.)
- * - Acento danger: #db2669
+ * Tailwind v4: dark mode por classe (não por prefers-color-scheme).
+ * Assim o alternador de temas no header tem efeito visível.
  */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Design system — Central Regatão.
+ * --base-font-size e --font-size: 12px–20px (FontResizer). UI em rem.
+ * Temas: light (claro refinado), soft (intermediário), brand (cores da marca), dark.
+ */
+:root {
+  --base-font-size: 16px;
+  --font-size: var(--base-font-size);
+  /* Tema claro refinado — contraste de leitura WCAG */
+  --bg-page: #ffffff;
+  --text-page: #0f172a;
+  --text-muted: #475569;
+  --border-page: #e2e8f0;
+  --accent: #b89600;
+  --accent-bg: rgba(235, 226, 47, 0.15);
+}
+
+html {
+  font-size: var(--base-font-size);
+}
+
 body {
   margin: 0;
-  background-color: #070707;
+  font-family: "Inter", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background-color: var(--bg-page);
+  color: var(--text-page);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* —— Tema Claro (refinado: contraste alto para leitura) —— */
+html[data-theme="light"] body {
+  --bg-page: #ffffff;
+  --text-page: #0f172a;
+  --text-muted: #475569;
+  --border-page: #e2e8f0;
+  --accent: #b89600;
+  --accent-bg: rgba(235, 226, 47, 0.15);
+  background-color: var(--bg-page) !important;
+  color: var(--text-page) !important;
+}
+
+/* —— Tema Suave (intermediário: fundo quente, leitura confortável) —— */
+html[data-theme="soft"] body {
+  --bg-page: #fafaf9;
+  --text-page: #1c1917;
+  --text-muted: #57534e;
+  --border-page: #e7e5e4;
+  --accent: #a16207;
+  --accent-bg: rgba(245, 158, 11, 0.12);
+  background-color: var(--bg-page) !important;
+  color: var(--text-page) !important;
+}
+
+/* —— Tema Marca (divertido: amarelo/âmbar suave da marca) —— */
+html[data-theme="brand"] body {
+  --bg-page: #fefce8;
+  --text-page: #1c1917;
+  --text-muted: #78716c;
+  --border-page: #fde68a;
+  --accent: #b45309;
+  --accent-bg: rgba(235, 226, 47, 0.25);
+  background-color: var(--bg-page) !important;
+  color: var(--text-page) !important;
+}
+
+html.dark body {
+  background-color: #000 !important;
+  color: #e4e4e7 !important;
+}
+
+.font-title {
+  font-family: "Inter", system-ui, sans-serif;
+  font-weight: 700;
+}
+
+button {
+  transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+}
+button:active {
+  transform: scale(0.98);
+}
+
+/* —— Portal do Agente: Modo Econômico (text-first, placeholders para imagens) —— */
+.portal-modo-economico img,
+.portal-modo-economico [data-cover],
+.portal-modo-economico [data-avatar] {
+  background: linear-gradient(135deg, #27272a 0%, #3f3f46 100%) !important;
+  min-width: 48px;
+  min-height: 48px;
+  object-fit: cover;
+}
+.portal-modo-economico img[src] {
+  opacity: 0.15;
+}
+
+/* —— Portal do Agente: Botão Relato Oral (microfone) — pulso ao gravar —— */
+.relato-oral-pulse {
+  animation: relato-oral-pulse 1.5s ease-in-out infinite;
+}
+@keyframes relato-oral-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.05); }
 }
